@@ -15,7 +15,7 @@ function App() {
 
             setRepositorios(await res.json())
 
-        }).catch(e => console.log('e',e))
+        })
         
         return (
     <div className="App">
