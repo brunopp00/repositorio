@@ -3,8 +3,10 @@ import './App.css';
 
 function App() {
     const [repositorios, setRepositorios] = useState([])
+    const [busca, setBusca] = useState('')
+    const reposFiltrados = busca.length > 0
+    ? repositorios.filter(repo => repo.name.toUpperCase().includes(busca.toUpperCase())) : []
 
-        
         
         fetch('https://api.github.com/users/brunopp00/repos').then(async res => {
             if(!res.ok){
@@ -22,18 +24,30 @@ function App() {
       </nav>
       <main className='container'>
         <div className='jumbutron'>
+            <input className='form-control mb-4' placeholder='Busca' value={busca} onChange={e => setBusca(e.target.value)}/>
             <h1>Veja meus repositórios</h1>
             <p className='lead'>
                 Programas criados por mim:
             </p>
-            {repositorios.map(repositorio => 
-            <div className='card col-md-12'>
-                    <div className='card-body'>
-                        <h1>{repositorio.name}</h1>
-                        <a target='_blank' href={repositorio.html_url} rel="noreferrer">{repositorio.html_url}</a>
+            { busca.length > 0 ? (
+                reposFiltrados.map(repositorio => 
+                    <div className='card col-md-12'>
+                            <div className='card-body'>
+                                <h1>{repositorio.name}</h1>
+                                <a target='_blank' href={repositorio.html_url} rel="noreferrer">{repositorio.html_url}</a>
+                            </div>
+                        </div>
+                        )
+            ) : (
+                repositorios.map(repositorio => 
+                <div className='card col-md-12'>
+                        <div className='card-body'>
+                            <h1>{repositorio.name}</h1>
+                            <a target='_blank' href={repositorio.html_url} rel="noreferrer">{repositorio.html_url}</a>
+                        </div>
                     </div>
-                </div>
-                )}
+                    )
+            )}
         </div>
       </main>
     </div>
