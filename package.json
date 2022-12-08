@@ -1,6 +1,7 @@
 {
   "name": "repositorio",
   "version": "0.1.0",
+  "homepage": "repositorio/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
